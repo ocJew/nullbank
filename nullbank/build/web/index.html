@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nullbank</title>
+    <style>
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #4481b7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .tab {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .tab button {
+            background-color: #4481b7;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 13px;
+            flex: 1;
+            margin: 2px;
+        }
+
+        .tab button.selected {
+            background-color: #2d5986; /* Darker shade for the selected button */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #bdbdbd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-group button {
+            background-color: #424242;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-group button:hover {
+            background-color: #333;
+        }
+
+        .error-message {
+            color: red;
+        }
+    </style>
+    <script>
+        function showTab(tabName) {
+            var tabs = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].style.display = "none";
+            }
+
+            document.getElementById(tabName).style.display = "block";
+
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("selected");
+            }
+
+            document.getElementById(tabName + "-button").classList.add("selected");
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Login</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Sobre</a>
+            <a href="#">Serviços</a>
+            <a href="#">Contato</a>
+        </nav>
+    </header>
+    <div class="login-container">
+        <div style="font-weight: bold; font-size: 1.2em; text-align: center; margin-bottom: 20px;">Nullbank</div>
+
+        <!-- Abas de Seleção -->
+        <div class="tab">
+            <button id="cliente-tab-button" class="tab-button selected" onclick="showTab('cliente-tab')">Cliente</button>
+            <button id="funcionario-tab-button" class="tab-button" onclick="showTab('funcionario-tab')">Funcionário</button>
+            <button id="dba-tab-button" class="tab-button" onclick="showTab('dba-tab')">DBA</button>
+        </div>
+
+        <!-- Formulário de Login para Cliente -->
+        <div id="cliente-tab" class="tab-content">
+            <form action="cliente/verificarLoginCliente.jsp" method="post" class="form-group">
+                <label for="cliente-cpf">CPF:</label>
+                <input type="text" id="cliente-cpf" name="cliente-cpf" required pattern="\d{11}" placeholder="Ex: 12345678901">
+
+                <label for="cliente-password">Senha:</label>
+                <input type="password" id="cliente-password" name="cliente-password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Formulário de Login para Funcionário -->
+        <div id="funcionario-tab" class="tab-content" style="display: none;">
+            <form action="funcionario/verificarLoginFuncionario.jsp" method="post" class="form-group">
+                <label for="funcionario-username">Matrícula:</label>
+                <input type="number" id="funcionario-username" name="funcionario-username" required>
+
+                <label for="funcionario-password">Senha:</label>
+                <input type="password" id="funcionario-password" name="funcionario-password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        
+        <!-- Formulário de Login para DBA -->
+        <div id="dba-tab" class="tab-content" style="display: none;">
+            <form action="verificarLoginDBA.jsp" method="post" class="form-group">
+                <label for="dba-username">Usuário:</label>
+                <input type="text" id="dba-username" name="dba-username" required>
+
+                <label for="dba-password">Senha:</label>
+                <input type="password" id="dba-password" name="dba-password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
